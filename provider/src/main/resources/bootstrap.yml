@@ -1,0 +1,31 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: nacos-provider
+  cloud:
+#    sentinel:
+#      transport:
+#        dashboard: 127.0.0.1:8849
+#        port: 8849
+    alibaba:
+      seata:
+        #自定义事务组名称需要与seata-server中的对应
+        tx-service-group: nacos-provider
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: SEATA_GROUP
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

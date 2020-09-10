@@ -1,0 +1,69 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: nacos-consumer
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        zhujing-output:
+          destination: zhujing-topic
+        zhujing-input:
+          destination: zhujing-topic
+          group: zhujing-topic-group1
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    url: jdbc:mysql://localhost:3306/seata_consumer?allowMultiQueries=true&useSSL=false
+    password: zhujing1016
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8084/users/current
+    client:
+      id: client_2
+      client-secret: 123456
+      access-token-uri: http://localhost:8084/oauth/token
+      grant-type: client_credentials,password
+      scope: server
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}
+  enable-auto-data-source-proxy: true
+  config:
+    type: nacos
+    nacos:
+      namespace:
+      serverAddr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      userName: "nacos"
+      password: "nacos"
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      namespace:
+      userName: "nacos"
+      password: "nacos"
+
+logging:
+  level:
+    io.seata: debug
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

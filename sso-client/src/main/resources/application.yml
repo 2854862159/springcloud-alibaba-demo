@@ -1,0 +1,49 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: nacos-ssoclient
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    url: jdbc:mysql://localhost:3306/seata_consumer?allowMultiQueries=true&useSSL=false
+    password: zhujing1016
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8084/user/current
+    client:
+      id: client_3
+      client-secret: 123456
+      access-token-uri: http://localhost:8084/oauth/token
+      grant-type: authorization_code,refresh_token
+      scope: all
+      user-authorization-uri: http://localhost:8084/oauth/authorize
+    authorization:
+      check-token-access: http://localhost:8084/oauth/check_token
+
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://localhost:8084/users/current
+#    client:
+#      id: client_2
+#      client-secret: 123456
+#      access-token-uri: http://localhost:8084/oauth/token
+#      grant-type: client_credentials,password
+#      scope: server
+
+logging:
+  level:
+    io.seata: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/seata_provider?allowMultiQueries=true&useSSL=false
+    password: zhujing1016
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    druid:
+#      url: jdbc:mysql://localhost:3306/seata_provider?allowMultiQueries=true&useSSL=false
+#      username: root
+#      password: zhujing1016
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+
+seata:
+    enabled: true
+    application-id: ${spring.application.name}
+    tx-service-group: ${spring.application.name}
+    enable-auto-data-source-proxy: true
+    config:
+      type: nacos
+      nacos:
+        namespace:
+        serverAddr: 127.0.0.1:8848
+        group: SEATA_GROUP
+        userName: "nacos"
+        password: "nacos"
+    registry:
+      type: nacos
+      nacos:
+        application: seata-server
+        server-addr: 127.0.0.1:8848
+        namespace:
+        userName: "nacos"
+        password: "nacos"
+
+logging:
+  level:
+    io.seata: debug
