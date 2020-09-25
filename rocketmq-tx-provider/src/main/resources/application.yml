@@ -1,0 +1,26 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: rocketmq-tx-provider
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+        bindings:
+          rocketmq-tx-output:
+            producer:
+              group: myTxProducerGroup
+              transactional: true
+      bindings:
+        rocketmq-tx-output:
+          destination: rocketmq-tx-topic
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    url: jdbc:mysql://localhost:3306/rocketmq_tx?allowMultiQueries=true&useSSL=false
+    password: zhujing1016
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver

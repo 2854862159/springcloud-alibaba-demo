@@ -1,0 +1,17 @@
+server:
+  port: 8091
+spring:
+  application:
+    name: rocketmq-tx-consumer
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        rocketmq-tx-input:
+          destination: rocketmq-tx-topic
+          group: zhujing-topic-group1
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
