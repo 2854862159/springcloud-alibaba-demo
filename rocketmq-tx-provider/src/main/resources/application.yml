@@ -16,6 +16,9 @@ spring:
       bindings:
         rocketmq-tx-output:
           destination: rocketmq-tx-topic
+        rocketmq-tx-input:
+          destination: rocketmq-tx-topic
+          group: myTxConsumerGroup
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848

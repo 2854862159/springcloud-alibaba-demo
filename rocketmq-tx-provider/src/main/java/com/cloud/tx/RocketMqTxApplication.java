@@ -1,5 +1,6 @@
 package com.cloud.tx;
 
+import com.cloud.tx.rocketmq.MySink;
 import com.cloud.tx.rocketmq.MySource;
 import com.cloud.tx.rocketmq.SourceProducer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,10 +23,11 @@ import java.util.Map;
  *
  * @author tooru<br />
  */
+@EnableTransactionManagement
 @EnableJpaRepositories
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableBinding({MySource.class})
+@EnableBinding({MySource.class, /**MySink.class*/})
 @RestController
 public class RocketMqTxApplication {
 
