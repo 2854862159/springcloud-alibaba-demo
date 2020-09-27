@@ -2,6 +2,7 @@ package com.cloud.provider;
 
 import com.cloud.provider.model.User;
 import com.cloud.provider.model.UserRep;
+import com.cloud.provider.tcc.TccSevice;
 import io.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -41,6 +42,9 @@ public class NacosProviderDemoApplication {
         @Autowired
         UserRep userRep;
 
+        @Autowired
+        TccSevice tccSevice;
+
         @GetMapping(value = "/echo/{string}")
 //        @SentinelResource("hello")
         public String echo(@PathVariable String string) {
@@ -56,6 +60,14 @@ public class NacosProviderDemoApplication {
             userRep.save(zhujing);
 
             return Collections.<String, String>singletonMap("msg", "SUCCESS");
+        }
+
+        @GetMapping("/user/add")
+        public Object add(){
+
+            String insert = tccSevice.insert(Collections.singletonMap("msg", "ok"));
+
+            return insert;
         }
 
     }

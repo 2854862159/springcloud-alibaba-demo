@@ -18,4 +18,7 @@ public interface UserFeignClient {
     @GetMapping("/user/money")
     public String money(@RequestParam Integer m);
 
+    @GetMapping("/user/add")
+    public void add();
+
 }

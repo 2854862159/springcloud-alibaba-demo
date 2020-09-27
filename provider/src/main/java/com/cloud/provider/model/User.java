@@ -23,18 +23,18 @@ public class User {
         this.uid = uid;
     }
 
-    public int getMoney() {
+    public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(Integer money) {
         this.money = money;
     }
 
     @Id
     private String uid;
 
-    private int money;
+    private Integer money;
 
 
 
