@@ -33,6 +33,7 @@ public class DubboConsumerApplication {
     @RestController
     public class Api{
 
+        //filter = "myfilter"
         @Reference(loadbalance = "myloadbalance")
         HelloService service;
 
