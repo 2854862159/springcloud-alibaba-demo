@@ -1,10 +1,13 @@
 package com.cloud.dubbo.app;
 
+import com.cloud.dubbo.app.extension.MyLoadBalance;
 import com.cloud.dubbo.app.model.CUser;
 import com.cloud.dubbo.app.model.UserRep;
 import com.cloud.dubbo.service.HelloService;
 import io.seata.spring.annotation.GlobalTransactional;
+import org.apache.dubbo.common.extension.ExtensionLoader;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.rpc.cluster.LoadBalance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,7 +33,7 @@ public class DubboConsumerApplication {
     @RestController
     public class Api{
 
-        @Reference
+        @Reference(loadbalance = "myloadbalance")
         HelloService service;
 
         @Autowired
@@ -46,6 +49,14 @@ public class DubboConsumerApplication {
 
             String hello = service.hello(name);
             return hello;
+        }
+
+        @RequestMapping("/myload")
+        public void myload(){
+            ExtensionLoader<LoadBalance> extensionLoader =
+                    ExtensionLoader.getExtensionLoader(LoadBalance.class);
+            LoadBalance myloadbalance = extensionLoader.getExtension("myloadbalance");
+            System.out.println(123);
         }
 
     }

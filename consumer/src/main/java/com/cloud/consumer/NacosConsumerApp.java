@@ -58,6 +58,12 @@ public class NacosConsumerApp {
         @Autowired
         SourceProducer producer;
 
+        @GetMapping("/rest")
+        public void rest(){
+            Object forObject = restTemplate.getForObject("http://www.baidu.com", Object.class);
+            System.out.println(forObject);
+        }
+
         @GetMapping("/echo/app-name")
         public String echoAppName() {
             //Access through the combination of LoadBalanceClient and RestTemplate

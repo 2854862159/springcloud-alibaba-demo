@@ -1,0 +1,1 @@
+myloadbalance=com.cloud.dubbo.app.extension.MyLoadBalance
